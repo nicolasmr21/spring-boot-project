@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>SCRUM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+	<div class="card shadow rounded w-50 container my-5">
+		<div class="row align-middle">
+			<div class="col"> 
+				<h2 class="text-center text-primary" >SCRUM Simulation</h2>
+				<p sec:authorize="hasRole('YES')" class="shadow"><a href="/topics/"><i class="fas fa-book ml-2" ></i> Manage Topics</a></p> 
+				<p class="shadow"><a href="/games/"><i class="fas fa-dice-six ml-2"></i> Manage Games</a></p>
+				<p class="shadow"><a href="/stories/"><i class="fas fa-history ml-2"></i> Manage Stories</a></p>
+				<p class="shadow"><a href="/logout"><i class="fas fa-sign-out-alt ml-2"></i> Logout</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

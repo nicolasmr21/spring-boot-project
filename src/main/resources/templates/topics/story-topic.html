@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>SCRUM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+</head>
+<body class="bg-dark" >
+	<div th:switch="${stories}" class="container card w-75 shadow my-5">
+		<div class="row">
+			<div class="col-md">
+				<h2 th:case="null">No stories yet!</h2>
+				<div th:case="*">
+					<h2 class="my-5 text-center text-primary">Stories</h2>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Short Description</th>
+								<th>Priority</th>
+								<th>Business Value</th>
+								<th>Initial Sprint</th>
+								<th>Game</th>
+								<th>Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="story : ${stories}">
+								<td th:text="${story.shortDescription}"></td>
+								<td th:text="${story.priority}"></td>
+								<td th:text="${story.businessValue}"></td>
+								<td th:text="${story.initialSprint}"></td>
+								<td><a th:href="@{/stories/showGame/{id}(id=${story.id})}"
+									class="btn btn-primary"><i class="fas fa-dice-six ml-2"></i></a></td>
+								<td><a th:href="@{/stories/edit/{id}(id=${story.id})}"
+									class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<p class="my-5">
+					<a href="/stories/add" class="btn btn-primary"><i
+						class="fas fa-plus ml-2"></i></a>
+				</p>
+			</div>
+		</div>
+		<p>
+			<a href="/topics/"><i class="fas fa-home ml-2"></i> Go back to topics</a>
+		</p>
+	</div>
+</body>
+</html>
