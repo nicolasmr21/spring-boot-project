@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="spring-boot-project">
+		<class>com.computacion.taller.model.TsscAcceptanceCriteria</class>
+		<class>com.computacion.taller.model.TsscAdmin</class>
+		<class>com.computacion.taller.model.TsscDeliverable</class>
+		<class>com.computacion.taller.model.TsscGame</class>
+		<class>com.computacion.taller.model.TsscGameAdmin</class>
+		<class>com.computacion.taller.model.TsscGroup</class>
+		<class>com.computacion.taller.model.TsscSprint</class>
+		<class>com.computacion.taller.model.TsscState</class>
+		<class>com.computacion.taller.model.TsscStory</class>
+		<class>com.computacion.taller.model.TsscTimecontrol</class>
+		<class>com.computacion.taller.model.TsscTimeInterval</class>
+		<class>com.computacion.taller.model.TsscTopic</class>  
+		
+		<properties>
+	      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+	      <property name="javax.persistence.jdbc.url"    value="jdbc:h2:mem:test" />
+	      <property name="javax.persistence.jdbc.user" value="sa" />
+	      <property name="javax.persistence.jdbc.password" value="" />
+	      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+	      <property name="show_sql" value="true"/>
+	    </properties>
+	</persistence-unit>
+</persistence>
