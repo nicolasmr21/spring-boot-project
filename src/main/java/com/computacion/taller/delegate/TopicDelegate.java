@@ -58,4 +58,29 @@ public class TopicDelegate {
 	 public void delete(long id) {
 		restTemplate.delete(idResource, id);
 	 }
+	 
+	 
+	 
+
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
+
+	public void setIdResource(String idResource) {
+		this.idResource = idResource;
+	}
+
+	public void setGamesResource(String gamesResource) {
+		this.gamesResource = gamesResource;
+	}
+
+	public void setStoriesResource(String storiesResource) {
+		this.storiesResource = storiesResource;
+	}
+	 
+	 
 }

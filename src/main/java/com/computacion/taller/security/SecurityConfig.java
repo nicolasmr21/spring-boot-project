@@ -2,6 +2,7 @@ package com.computacion.taller.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -38,15 +39,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {	
 		
-		httpSecurity.authorizeRequests().antMatchers("/**").permitAll()
-		.and().formLogin().loginPage("/login").permitAll()
-		.and().httpBasic()
-		.and().logout()
-				.invalidateHttpSession(true).clearAuthentication(true)
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-				.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+//		httpSecurity.authorizeRequests().antMatchers("/**").permitAll()
+//		.and().formLogin().loginPage("/login").permitAll()
+//		.and().httpBasic()
+//		.and().logout()
+//				.invalidateHttpSession(true).clearAuthentication(true)
+//				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
+//				.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
-//		httpSecurity.authorizeRequests().antMatchers("/topics/").hasRole("YES").antMatchers("/**").authenticated().anyRequest().permitAll()
+//		httpSecurity
+//		.authorizeRequests()
+//		.antMatchers("/topics/").hasRole("YES")
+//		.antMatchers("/api/").permitAll().anyRequest().permitAll()
 //		.and().formLogin().loginPage("/login").permitAll()
 //		.and().httpBasic()
 //		.and().logout()

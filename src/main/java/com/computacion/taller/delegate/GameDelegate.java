@@ -60,4 +60,22 @@ public class GameDelegate {
 	 public void delete(long id) {
 		restTemplate.delete(idResource, id);
 	 }
+
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
+
+	public void setIdResource(String idResource) {
+		this.idResource = idResource;
+	}
+
+	public void setTopicResource(String topicResource) {
+		this.topicResource = topicResource;
+	}
+
+	public void setStoriesResource(String storiesResource) {
+		this.storiesResource = storiesResource;
+	}
+	 
+	 
 }
