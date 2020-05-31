@@ -17,11 +17,13 @@ import org.springframework.web.client.RestTemplate;
 import com.computacion.taller.model.TsscAdmin;
 import com.computacion.taller.model.TsscGame;
 import com.computacion.taller.model.TsscStory;
+import com.computacion.taller.model.TsscTimecontrol;
 import com.computacion.taller.model.TsscTopic;
 import com.computacion.taller.repository.GameDao;
 import com.computacion.taller.service.AdminService;
 import com.computacion.taller.service.GameService;
 import com.computacion.taller.service.StoryService;
+import com.computacion.taller.service.TimecontrolService;
 import com.computacion.taller.service.TopicService;
 
 /**
@@ -47,7 +49,7 @@ public class TallerAPP {
 
 	@Bean
 	public CommandLineRunner runner(AdminService adminService, TopicService topicService, GameService gameService,
-			StoryService storyService, GameDao gameDao) {
+			StoryService storyService, GameDao gameDao, TimecontrolService tcService) {
 		return args -> {
 			TsscAdmin superadmin = new TsscAdmin();
 			superadmin.setSuperAdmin("YES");
@@ -89,6 +91,12 @@ public class TallerAPP {
 			story.setTsscGame(game);
 			story.setTsscTopic(topic);
 			storyService.save(story);
+			TsscTimecontrol tc = new TsscTimecontrol();
+			tc.setType("r");
+			tc.setState("ss");
+			tc.setTimeInterval(new BigDecimal(2));
+			tc.setTsscGame(game);
+			tcService.save(tc);
 		};
 	}
 }

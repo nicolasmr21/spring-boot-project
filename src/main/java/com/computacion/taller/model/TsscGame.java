@@ -107,6 +107,7 @@ public class TsscGame implements Serializable {
 	
 	//bi-directional many-to-one association to TsscTimecontrol
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="tsscGame")
+	@JsonIgnore
 	private List<TsscTimecontrol> tsscTimecontrols;
 
 	//bi-directional many-to-one association to TssTopic

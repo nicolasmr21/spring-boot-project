@@ -1,7 +1,7 @@
 package com.computacion.taller.rest;
 
 import java.net.URI;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,65 +12,64 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.computacion.taller.model.TsscGame;
-import com.computacion.taller.model.TsscStory;
-import com.computacion.taller.model.TsscTopic;
-import com.computacion.taller.service.StoryService;
-import com.computacion.taller.service.TopicService;
+import com.computacion.taller.model.TsscTimecontrol;
+import com.computacion.taller.service.TimecontrolService;
 
 @RestController
-public class StoryRestController {
+public class TimeControlRestController {
 	
 	@Autowired
-	StoryService storyService;
+	TimecontrolService timecontrolService;
 
-	@GetMapping("/api/stories")
-	public Iterable<TsscStory> getStories() {
-		return storyService.findAll();
+	@GetMapping("/api/timecontrols")
+	public Iterable<TsscTimecontrol> getTimecontrols() {
+		return timecontrolService.findAll();
 	}
 	
-	@GetMapping("/api/stories/{id}")
-	public TsscStory getStory(@PathVariable("id") long id) {
-		TsscStory t = storyService.findById(id);
+	@GetMapping("/api/timecontrols/{id}")
+	public TsscTimecontrol getTimecontrol(@PathVariable("id") long id) {
+		TsscTimecontrol t = timecontrolService.findById(id);
 		if(t==null) {
 			throw new RuntimeException();
 		} 
 		return t;
 	}
 	
-	@GetMapping("/api/stories/{id}/game")
-	public TsscGame getStoryGame(@PathVariable("id") long id) {
-		TsscStory t = storyService.findById(id);
+	@GetMapping("/api/timecontrols/{id}/game")
+	public TsscGame getTimecontrolGame(@PathVariable("id") long id) {
+		TsscTimecontrol t = timecontrolService.findById(id);
 		if(t==null) {
 			throw new RuntimeException();
 		} 
 		return t.getTsscGame();
 	}
 			
-	@PostMapping("/api/stories")
-	public ResponseEntity<Object> add(@RequestBody TsscStory story) {
-		TsscStory savedStory = storyService.save(story);
+	@PostMapping("/api/timecontrols")
+	public ResponseEntity<Object> add(@RequestBody TsscTimecontrol timecontrol) {
+		TsscTimecontrol savedTimecontrol = timecontrolService.save(timecontrol);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedStory.getId()).toUri();
+				.buildAndExpand(savedTimecontrol.getId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 	
 
-	@PutMapping("/api/stories/{id}")
-	public ResponseEntity<Object> edit(@RequestBody TsscStory story, @PathVariable long id) {
-		TsscStory t = storyService.findById(id);
+	@PutMapping("/api/timecontrols/{id}")
+	public ResponseEntity<Object> edit(@RequestBody TsscTimecontrol timecontrol, @PathVariable long id) {
+		TsscTimecontrol t = timecontrolService.findById(id);
 		if(t==null) {
 			return ResponseEntity.notFound().build();
 		} 
-		story.setId(id);
-		storyService.edit(story);
+		timecontrol.setId(id);
+		timecontrolService.edit(timecontrol);
 		return ResponseEntity.ok().build();
 	}
 	
 	
-	@DeleteMapping("/api/stories/{id}")
+	@DeleteMapping("/api/timecontrols/{id}")
 	public ResponseEntity<Object> delete(@PathVariable long id) {
-		storyService.delete(storyService.findById(id));
+		timecontrolService.delete(timecontrolService.findById(id));
 		return ResponseEntity.ok().build();
 	}
 		
