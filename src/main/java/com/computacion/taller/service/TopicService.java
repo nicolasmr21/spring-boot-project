@@ -1,5 +1,6 @@
 package com.computacion.taller.service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -72,6 +73,11 @@ public class TopicService {
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(TsscTopic t) {
 		topicDao.delete(t);
+	}
+	
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Iterable<TsscTopic> findByDate(LocalDate date){
+		return topicDao.findTopicWithGameAmountByDate(date);
 	}
 	
 }

@@ -70,6 +70,7 @@ public class StoryRestController {
 	
 	@DeleteMapping("/api/stories/{id}")
 	public ResponseEntity<Object> delete(@PathVariable long id) {
+		System.out.println("kkk");
 		storyService.delete(storyService.findById(id));
 		return ResponseEntity.ok().build();
 	}

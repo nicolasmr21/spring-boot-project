@@ -29,6 +29,7 @@
 								<th>Interval</th>
 								<th>Game</th>
 								<th>Edit</th>
+								<th>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,6 +41,8 @@
 									class="btn btn-primary"><i class="fas fa-dice-six ml-2"></i></a></td>
 								<td><a th:href="@{/timecontrols/edit/{id}(id=${timecontrol.id})}"
 									class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
+									<td><a th:href="@{/timecontrols/remove/{id}(id=${timecontrol.id})}"
+									class="btn btn-primary"><i class="fas fa-calendar-times"></i></a></td>
 							</tr>
 						</tbody>
 					</table>

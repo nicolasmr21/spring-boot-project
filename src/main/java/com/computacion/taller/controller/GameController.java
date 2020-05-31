@@ -1,5 +1,6 @@
 package com.computacion.taller.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,23 @@ public class GameController {
 	public String index(Model model) {
 		model.addAttribute("games", gameDelegate.findAll());
 		return "games/index";
+	}
+	
+	@GetMapping("/games/query")
+	public String query(Model model) {
+		model.addAttribute("games", gameDelegate.findAll());
+		TsscGame k = new TsscGame();
+		k.setScheduledDate(LocalDate.of(2020, 3, 1));
+		model.addAttribute("dummy", k);
+		return "games/query";
+	}
+	
+	@PostMapping("/games/query")
+	public String query(TsscGame t, BindingResult bd, @RequestParam(value = "action", required = true) String action,  Model model) {
+		model.addAttribute("games", gameDelegate.findByDate(t.getScheduledDate()));
+		model.addAttribute("dummy", t);
+		
+		return "games/query";
 	}
 		
 	@GetMapping("/games/add")

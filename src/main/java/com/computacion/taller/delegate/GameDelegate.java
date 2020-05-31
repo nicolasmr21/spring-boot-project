@@ -1,5 +1,6 @@
 package com.computacion.taller.delegate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,12 +34,19 @@ public class GameDelegate {
 	 @Value("${resource.games}/{id}/stories")
 	 private String storiesResource;
 	 
+	 @Value("${resource.games}/query/{date}")
+	 private String queryResource;
+	 
 	 public List<TsscGame> findAll() {
 		return Arrays.stream(restTemplate.getForObject(resource, TsscGame[].class)).collect(Collectors.toList());
 	 }
 	 
 	 public TsscGame findById(long id) {
 		return restTemplate.getForObject(idResource, TsscGame.class, id);
+	 }
+	 
+	 public List<TsscGame> findByDate(LocalDate date) {
+			return Arrays.stream(restTemplate.getForObject(queryResource, TsscGame[].class, date)).collect(Collectors.toList());
 	 }
 	 
 	 public TsscTopic findTopic(long id) {

@@ -1,6 +1,7 @@
 package com.computacion.taller.rest;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.computacion.taller.model.TsscGame;
@@ -26,6 +28,11 @@ public class TopicRestController {
 	@GetMapping("/api/topics")
 	public Iterable<TsscTopic> getTopics() {
 		return topicService.findAll();
+	}
+	
+	@GetMapping("/api/topics/query/{date}")
+	public Iterable<TsscTopic> getTopicsByDate(@PathVariable("date") String date) {		
+		return topicService.findByDate(LocalDate.parse(date));
 	}
 	
 	@GetMapping("/api/topics/{id}")

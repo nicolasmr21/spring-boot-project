@@ -1,5 +1,6 @@
 package com.computacion.taller.delegate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,8 +32,15 @@ public class TopicDelegate {
 	 @Value("${resource.topics}/{id}/stories")
 	 private String storiesResource;
 	 
+	 @Value("${resource.topics}/query/{date}")
+	 private String queryResource;
+	 
 	 public List<TsscTopic> findAll() {
 		return Arrays.stream(restTemplate.getForObject(resource, TsscTopic[].class)).collect(Collectors.toList());
+	 }
+	 
+	 public List<TsscTopic> findByDate(LocalDate date) {
+			return Arrays.stream(restTemplate.getForObject(queryResource, TsscTopic[].class, date)).collect(Collectors.toList());
 	 }
 	 
 	 public TsscTopic findById(long id) {

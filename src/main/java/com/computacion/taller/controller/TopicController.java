@@ -1,5 +1,7 @@
 package com.computacion.taller.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.computacion.taller.delegate.TopicDelegate;
+import com.computacion.taller.model.TsscGame;
 import com.computacion.taller.model.TsscTopic;
-import com.computacion.taller.service.TopicService;
 
 @Controller
 public class TopicController {
@@ -24,6 +26,23 @@ public class TopicController {
 	public String index(Model model) {
 		model.addAttribute("topics", topicDelegate.findAll());
 		return "topics/index";
+	}
+	
+	@GetMapping("/topics/query")
+	public String query(Model model) {
+		model.addAttribute("topics", topicDelegate.findAll());
+		TsscGame k = new TsscGame();
+		k.setScheduledDate(LocalDate.of(2020, 3, 1));
+		model.addAttribute("dummy", k);
+		return "topics/query";
+	}
+	
+	@PostMapping("/topics/query")
+	public String query(TsscGame t, BindingResult bd, @RequestParam(value = "action", required = true) String action,  Model model) {
+		model.addAttribute("topics", topicDelegate.findByDate(t.getScheduledDate()));
+		model.addAttribute("dummy", t);
+		
+		return "topics/query";
 	}
 		
 	@GetMapping("/topics/add")

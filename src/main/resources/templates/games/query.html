@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,14 +20,21 @@
 			<div class="col-md">
 				<h2 th:case="null">No games yet!</h2>
 				<div th:case="*">
-					<h2 class="my-5 text-center text-primary">Games</h2>
+					<h2 class="my-5 text-center text-primary">Queries of games</h2>
+					<form action="#" th:action="@{/games/query}" th:object="${dummy}"
+					method="post">
 					<div class="row">
 						<div class="form-group col-md-6">
-						<h2 class="my-5 text-primary">Go to query</h2>
-							<a href="/games/query" class="btn btn-primary"><i
-								class="fas fa-search-plus ml-2"></i></a>
+							<label for="date" class="col-form-label">Write a date</label> <input
+								type="date" th:field="*{scheduledDate}" class="form-control" id="date"
+								>
+								<div class="w-50 mb-2">
+							<input type="submit" name="action" class="btn-block btn btn-primary"
+								value="Add">
+						</div>
 						</div>
 					</div>
+					</form>
 					<table class="table table-striped table-responsive-md">
 						<thead>
 							<tr>
@@ -37,9 +44,6 @@
 								<th>Groups</th>
 								<th>Sprints</th>
 								<th>Real Initial Time</th>
-								<th>Stories</th>
-								<th sec:authorize="hasRole('YES')" >Topic</th>
-								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -50,24 +54,14 @@
 								<td th:text="${game.nGroups}"></td>
 								<td th:text="${game.nSprints}"></td>
 								<td th:text="${game.scheduledTime}"></td>
-								<td><a th:href="@{/games/showStories/{id}(id=${game.id})}"
-									class="btn btn-primary"><i class="fas fa-history ml-2"></i></a></td>
-								<td sec:authorize="hasRole('YES')" ><a th:href="@{/games/showTopic/{id}(id=${game.id})}"
-									class="btn btn-primary"><i class="fas fa-book ml-2"></i></a></td>
-								<td><a th:href="@{/games/edit/{id}(id=${game.id})}"
-									class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<p class="my-5">
-					<a href="/games/add" class="btn btn-primary"><i
-						class="fas fa-plus ml-2"></i></a>
-				</p>
 			</div>
 		</div>
 		<p>
-			<a href="/"><i class="fas fa-home ml-2"></i> Go back to main</a>
+			<a href="/"><i class="fas fa-home ml-2"></i> Go back to games</a>
 		</p>
 	</div>
 </body>

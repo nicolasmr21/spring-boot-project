@@ -51,7 +51,9 @@ public class TimecontrolService {
 	
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(TsscTimecontrol t) {
+		System.out.println(t.getTsscGame().getTsscTimecontrols().size());
 		timecontrolDao.delete(t);
+		System.out.println(t.getTsscGame().getTsscTimecontrols().size());
 	}
 	
 	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

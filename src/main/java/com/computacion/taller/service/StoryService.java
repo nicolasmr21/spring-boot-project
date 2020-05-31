@@ -81,6 +81,8 @@ public class StoryService {
 	
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(TsscStory t) {
+		System.out.println(t.getTsscGame().getTsscStories().size());
+		System.out.println(t.getTsscTopic().getTsscStories().size());
 		storyDao.delete(t);
 	}
 	

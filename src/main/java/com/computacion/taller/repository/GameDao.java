@@ -92,7 +92,7 @@ public class GameDao implements IGameDao{
 		return entityManager.createQuery(jpql).getResultList();
 	}
 	
-	public List<TsscTopic> findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate date) {
+	public Iterable<TsscGame> findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate date) {
 		String jpql = " SELECT g"
 				+ " FROM TsscGame g "
 				+ " WHERE ( g.scheduledDate = '" +date +"' AND size(g.tsscStories) < 10 ) " 

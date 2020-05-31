@@ -1,6 +1,7 @@
 package com.computacion.taller.rest;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,11 @@ public class GameRestController {
 			throw new RuntimeException();
 		} 
 		return t;
+	}
+	
+	@GetMapping("/api/games/query/{date}")
+	public Iterable<TsscGame> getGamesByDate(@PathVariable("date") String date) {		
+		return gameService.findByDate(LocalDate.parse(date));
 	}
 	
 	@GetMapping("/api/games/{id}/topic")

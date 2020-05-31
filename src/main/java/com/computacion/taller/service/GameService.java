@@ -1,5 +1,6 @@
 package com.computacion.taller.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -130,6 +131,11 @@ public class GameService {
 	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Iterable<TsscGame> findAll() {
 		return gameDao.findAll();
+	}
+	
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Iterable<TsscGame> findByDate(LocalDate date) {
+		return gameDao.findGamesByDateWithMax9StoriesOr0Timecontrols(date);
 	}
 
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

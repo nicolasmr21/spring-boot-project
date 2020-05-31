@@ -90,6 +90,7 @@ public class StoryController {
 	
 	@GetMapping("/stories/remove/{id}")
 	public String remove(@PathVariable("id") long id) {
+		System.out.println("holi");
 		storyDelegate.delete(id);
 		return "redirect:/stories/";
 	}

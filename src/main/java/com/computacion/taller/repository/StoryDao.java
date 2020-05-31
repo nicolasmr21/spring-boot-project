@@ -31,6 +31,7 @@ public class StoryDao implements IStoryDao{
 
 	@Override
 	public void delete(TsscStory entity) {
+		System.out.println(entity.getShortDescription());
 		entityManager.remove(entity);		
 		
 	}
