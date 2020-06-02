@@ -38,10 +38,8 @@ public class StoryService {
 	
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public TsscStory save(TsscStory story) {
-		
 		if(story==null)
 			return null;
-		
 		if(story.getBusinessValue().intValue() >0 && story.getInitialSprint().intValue()>0 
 				&& story.getPriority().intValue()>0) {			
 			if(story.getTsscGame()!=null && gameDao.findById(story.getTsscGame().getId()).isPresent()) {				

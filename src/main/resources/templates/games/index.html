@@ -38,6 +38,7 @@
 								<th>Sprints</th>
 								<th>Real Initial Time</th>
 								<th>Stories</th>
+								<th>Time Controls</th>
 								<th sec:authorize="hasRole('YES')" >Topic</th>
 								<th>Edit</th>
 							</tr>
@@ -52,6 +53,8 @@
 								<td th:text="${game.scheduledTime}"></td>
 								<td><a th:href="@{/games/showStories/{id}(id=${game.id})}"
 									class="btn btn-primary"><i class="fas fa-history ml-2"></i></a></td>
+								<td><a th:href="@{/games/showTimecontrols/{id}(id=${game.id})}"
+									class="btn btn-primary"><i class="fas fa-stopwatch ml-2"></i></a></td>
 								<td sec:authorize="hasRole('YES')" ><a th:href="@{/games/showTopic/{id}(id=${game.id})}"
 									class="btn btn-primary"><i class="fas fa-book ml-2"></i></a></td>
 								<td><a th:href="@{/games/edit/{id}(id=${game.id})}"

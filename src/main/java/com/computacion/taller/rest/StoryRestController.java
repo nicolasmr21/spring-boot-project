@@ -49,6 +49,7 @@ public class StoryRestController {
 			
 	@PostMapping("/api/stories")
 	public ResponseEntity<Object> add(@RequestBody TsscStory story) {
+		
 		TsscStory savedStory = storyService.save(story);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(savedStory.getId()).toUri();
@@ -70,7 +71,6 @@ public class StoryRestController {
 	
 	@DeleteMapping("/api/stories/{id}")
 	public ResponseEntity<Object> delete(@PathVariable long id) {
-		System.out.println("kkk");
 		storyService.delete(storyService.findById(id));
 		return ResponseEntity.ok().build();
 	}

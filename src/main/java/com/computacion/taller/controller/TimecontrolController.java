@@ -53,6 +53,31 @@ public class TimecontrolController {
 		return "redirect:/timecontrols/";
 	}
 	
+	@GetMapping("/timecontrols/add/{id}")
+	public String addTimecontrols(Model model, @PathVariable("id") long id) {
+		model.addAttribute("tsscTimecontrol", new TsscTimecontrol());
+		model.addAttribute("game", gameService.findById(id));
+		return "timecontrols/addtogame";
+	}
+	
+	@PostMapping("/timecontrols/add/{id}")
+	public String addTimecontrols(@PathVariable long id, @Validated TsscTimecontrol timecontrol, BindingResult bd, @RequestParam(value = "action", required = true) String action, Model model) {
+		if(bd.hasErrors()&&!action.equalsIgnoreCase("Cancel")) {
+			model.addAttribute("tsscTimecontrol", timecontrol);
+			model.addAttribute("game", gameService.findById(id));
+			return "/timecontrols/addtogame";
+		}
+		if(!action.equalsIgnoreCase("Cancel")) {
+			TsscTimecontrol t = new TsscTimecontrol();
+			t.setType(timecontrol.getType());
+			t.setState(timecontrol.getState());
+			t.setOrder(timecontrol.getOrder());
+			t.setTsscGame(gameService.findById(id));
+			timecontrolDelegate.save(t);
+		}
+		return "redirect:/games/showTimecontrols/" + id;
+	}
+	
 	@GetMapping("/timecontrols/edit/{id}")
 	public String edit(@PathVariable("id") long id, Model model) {
 		model.addAttribute("tsscTimecontrol", timecontrolDelegate.findById(id));
@@ -78,6 +103,32 @@ public class TimecontrolController {
 		return "redirect:/timecontrols/";
 	}
 	
+	@GetMapping("/timecontrols/edit/{idgame}/{id}")
+	public String editTimecontrols(Model model, @PathVariable("id") long id, @PathVariable long idgame) {
+		model.addAttribute("tsscTimecontrol", timecontrolDelegate.findById(id));
+		model.addAttribute("game", gameService.findById(idgame));
+		return "timecontrols/editfromgame";
+	}
+	
+	@PostMapping("/timecontrols/edit/{idgame}/{id}")
+	public String editTimecontrols(@Validated TsscTimecontrol timecontrol, BindingResult bd, @RequestParam(value = "action", required = true) String action, @PathVariable("id") long id, @PathVariable("idgame") long idgame,  Model model) {
+		if(bd.hasErrors()&&!action.equalsIgnoreCase("Cancel")) {
+			model.addAttribute("tsscTimecontrol", timecontrol);
+			model.addAttribute("games", gameService.findById(idgame));
+			return "timecontrols/editofromgame";
+		}
+		if(!action.equalsIgnoreCase("Cancel")) {
+			
+			TsscTimecontrol t = timecontrolDelegate.findById(id);
+			t.setType(timecontrol.getType());
+			t.setState(timecontrol.getState());
+			t.setOrder(timecontrol.getOrder());
+			t.setTsscGame(gameService.findById(idgame));
+			timecontrolDelegate.update(id, t);
+		}
+		return "redirect:/games/showTimecontrols/" + idgame;
+	}
+	
 	@GetMapping("/timecontrols/showGame/{id}")
 	public String showGame(Model model, @PathVariable("id") long id) {
 		List<TsscGame> g = new ArrayList<>();
@@ -90,6 +141,12 @@ public class TimecontrolController {
 	public String remove(@PathVariable("id") long id) {
 		timecontrolDelegate.delete(id);
 		return "redirect:/timecontrols/";
+	}
+	
+	@GetMapping("/timecontrols/removefrom/{idgame}/{id}")
+	public String removeFrom(@PathVariable("id") long id, @PathVariable("idgame") long idgame) {
+		timecontrolDelegate.delete(id);
+		return "redirect:/games/showTimecontrols/" + idgame;
 	}
 		
 }

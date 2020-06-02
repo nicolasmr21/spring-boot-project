@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.computacion.taller.model.TsscGame;
 import com.computacion.taller.model.TsscStory;
+import com.computacion.taller.model.TsscTimecontrol;
 import com.computacion.taller.model.TsscTopic;
 import com.computacion.taller.service.GameService;
 
@@ -59,6 +60,15 @@ public class GameRestController {
 			throw new RuntimeException();
 		} 
 		return t.getTsscStories();
+	}
+	
+	@GetMapping("/api/games/{id}/timecontrols")
+	public List<TsscTimecontrol> getGameTimecontrols(@PathVariable("id") long id) {
+		TsscGame t = gameService.findById(id);
+		if(t==null) {
+			throw new RuntimeException();
+		} 
+		return t.getTsscTimecontrols();
 	}
 			
 	@PostMapping("/api/games")

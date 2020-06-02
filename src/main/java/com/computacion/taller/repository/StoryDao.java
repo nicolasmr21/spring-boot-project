@@ -24,6 +24,7 @@ public class StoryDao implements IStoryDao{
 
 	@Override
 	public TsscStory update(TsscStory entity) {
+		System.out.println("holaaaaaa");
 		entityManager.merge(entity);	
 		return entity;
 		

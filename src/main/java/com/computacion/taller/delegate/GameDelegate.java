@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.computacion.taller.model.TsscGame;
 import com.computacion.taller.model.TsscStory;
+import com.computacion.taller.model.TsscTimecontrol;
 import com.computacion.taller.model.TsscTopic;
 
 @Component
@@ -33,6 +34,9 @@ public class GameDelegate {
 	
 	 @Value("${resource.games}/{id}/stories")
 	 private String storiesResource;
+	 
+	 @Value("${resource.games}/{id}/timecontrols")
+	 private String tcResource;
 	 
 	 @Value("${resource.games}/query/{date}")
 	 private String queryResource;
@@ -56,6 +60,10 @@ public class GameDelegate {
 	 public List<TsscStory> findStories(long id) {
 		return Arrays.stream(restTemplate.getForObject(storiesResource, TsscStory[].class, id)).collect(Collectors.toList());
 	 }
+	 
+	 public List<TsscTimecontrol> findTimecontrols(long id) {
+			return Arrays.stream(restTemplate.getForObject(tcResource, TsscTimecontrol[].class, id)).collect(Collectors.toList());
+		 }
 	  
 	 public void save(TsscGame game) {
 		restTemplate.postForObject(resource, game, TsscGame.class);

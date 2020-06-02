@@ -194,7 +194,7 @@ public class TestGameDao {
 		assertNotNull(gameDao);
 		assertNotNull(gameDao.findById(game.getId()));			
 		assertNotNull(gameDao.findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate.of(2020, 7, 25)));
-		assertEquals(1, gameDao.findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate.of(2020, 7, 25)).size() );	
+		assertEquals(1, ((List<TsscGame>) gameDao.findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate.of(2020, 7, 25))).size() );	
 		
 		TsscStory story = new TsscStory();
 		story.setDescription("Nueva historia de prueba");;
@@ -212,7 +212,7 @@ public class TestGameDao {
 		
 		assertNotNull(timecontrolDao.findById(tc.getId()).get());
 		assertNotNull(timecontrolDao.findById(tc.getId()).get().getTsscGame());
-		assertEquals(1, gameDao.findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate.of(2020, 7, 25)).size() );	
+		assertEquals(1, ((List<TsscGame>) gameDao.findGamesByDateWithMax9StoriesOr0Timecontrols(LocalDate.of(2020, 7, 25))).size() );	
 	}
 
 

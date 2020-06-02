@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.computacion.taller.delegate.GameDelegate;
+import com.computacion.taller.delegate.TimecontrolDelegate;
 import com.computacion.taller.delegate.TopicDelegate;
 import com.computacion.taller.model.TsscGame;
 import com.computacion.taller.model.TsscTopic;
@@ -26,6 +27,8 @@ public class GameController {
 	GameDelegate gameDelegate;
 	@Autowired
 	TopicDelegate topicDelegate;
+	@Autowired
+	TimecontrolDelegate tcDelegate;
 
 	@GetMapping("/games/")
 	public String index(Model model) {
@@ -111,8 +114,18 @@ public class GameController {
 	@GetMapping("/games/showStories/{id}")
 	public String showStories(Model model, @PathVariable("id") long id) {
 		model.addAttribute("stories", gameDelegate.findStories(id));
+		model.addAttribute("game", gameDelegate.findById(id));
 		return "games/stories-game";
 	}
+	
+	@GetMapping("/games/showTimecontrols/{id}")
+	public String showTimecontrols(Model model, @PathVariable("id") long id) {
+		model.addAttribute("timecontrols", gameDelegate.findTimecontrols(id));
+		model.addAttribute("game", gameDelegate.findById(id));
+		return "games/timecontrols-game";
+	}
+	
+	
 	
 	@GetMapping("/games/showTopic/{id}")
 	public String showTopic(Model model, @PathVariable("id") long id) {

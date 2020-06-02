@@ -40,6 +40,32 @@ public class StoryController {
 		return "stories/add";
 	}
 	
+	@GetMapping("/stories/add/{id}")
+	public String addStories(Model model, @PathVariable("id") long id) {
+		model.addAttribute("tsscStory", new TsscStory());
+		model.addAttribute("game", gameService.findById(id));
+		return "stories/addtogame";
+	}
+	
+	@PostMapping("/stories/add/{id}")
+	public String addStories(@PathVariable long id, @Validated TsscStory story, BindingResult bd, @RequestParam(value = "action", required = true) String action, Model model) {
+		if(bd.hasErrors()&&!action.equalsIgnoreCase("Cancel")) {
+			model.addAttribute("tsscStory", story);
+			model.addAttribute("game", gameService.findById(id));
+			return "/stories/addtogame";
+		}
+		if(!action.equalsIgnoreCase("Cancel")) {
+			TsscStory t = new TsscStory();
+			t.setShortDescription(story.getShortDescription());
+			t.setBusinessValue(story.getBusinessValue());
+			t.setPriority(story.getPriority());
+			t.setInitialSprint(story.getInitialSprint());
+			t.setTsscGame(gameService.findById(id));
+			storyDelegate.save(t);
+		}
+		return "redirect:/games/showStories/" + id;
+	}
+	
 	@PostMapping("/stories/add")
 	public String add(@Validated TsscStory story, BindingResult bd, @RequestParam(value = "action", required = true) String action, Model model) {
 			
@@ -52,6 +78,35 @@ public class StoryController {
 			storyDelegate.save(story);
 		}
 		return "redirect:/stories/";
+	}
+	
+	@GetMapping("/stories/edit/{idgame}/{id}")
+	public String editStories(Model model, @PathVariable("id") long id, @PathVariable long idgame) {
+		model.addAttribute("tsscStory", storyDelegate.findById(id));
+		model.addAttribute("game", gameService.findById(idgame));
+		return "stories/editfromgame";
+	}
+	
+	@PostMapping("/stories/edit/{idgame}/{id}")
+	public String editStories(@Validated TsscStory story, BindingResult bd, @RequestParam(value = "action", required = true) String action, @PathVariable("id") long id, @PathVariable("idgame") long idgame,  Model model) {
+		if(bd.hasErrors()&&!action.equalsIgnoreCase("Cancel")) {
+			model.addAttribute("tsscStory", story);
+			model.addAttribute("games", gameService.findById(idgame));
+			return "stories/editofromgame";
+		}
+		if(!action.equalsIgnoreCase("Cancel")) {
+			
+			TsscStory t = storyDelegate.findById(id);
+			t.setShortDescription(story.getShortDescription());
+			t.setPriority(story.getPriority());
+			t.setBusinessValue(story.getBusinessValue());
+			t.setInitialSprint(story.getInitialSprint());
+			t.setTsscGame(gameService.findById(idgame));
+			System.out.println(t.getShortDescription());
+			storyDelegate.update(id, t);
+			System.out.println(storyDelegate.findById(id).getShortDescription());
+		}
+		return "redirect:/games/showStories/" + idgame;
 	}
 	
 	@GetMapping("/stories/edit/{id}")
@@ -90,9 +145,14 @@ public class StoryController {
 	
 	@GetMapping("/stories/remove/{id}")
 	public String remove(@PathVariable("id") long id) {
-		System.out.println("holi");
 		storyDelegate.delete(id);
 		return "redirect:/stories/";
+	}
+	
+	@GetMapping("/stories/removefrom/{idgame}/{id}")
+	public String removeFrom(@PathVariable("id") long id, @PathVariable("idgame") long idgame) {
+		storyDelegate.delete(id);
+		return "redirect:/games/showStories/" + idgame;
 	}
 		
 }
